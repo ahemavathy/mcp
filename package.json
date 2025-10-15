@@ -1,0 +1,23 @@
+{
+  "name": "mcp-server-demo",
+  "version": "1.0.0",
+  "description": "A simple Model Context Protocol (MCP) server using Node.js and TypeScript.",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.12.0",
+    "@azure/storage-blob": "^12.28.0",
+    "@modelcontextprotocol/sdk": "^1.17.1",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
