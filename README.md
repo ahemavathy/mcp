@@ -1,7 +1,7 @@
-# MCP Weather Server Demo
+# MCP Multi-Feature Server
 
 This project is a Model Context Protocol (MCP) server implemented using Node.js and TypeScript, following the official MCP TypeScript SDK.  
-It provides real-time weather data and forecasts using the [Open-Meteo API](https://open-meteo.com/en/docs).
+It provides multiple capabilities including weather data, system utilities, Azure integration, and AI-powered image generation and editing.
 
 ## Features
 - **Current Weather**: Get the current weather for any city
@@ -12,8 +12,8 @@ It provides real-time weather data and forecasts using the [Open-Meteo API](http
 - **System Info**: Get basic system information
 - **Azure Integration**: Manage Azure subscriptions and resource groups with MCP elicitation
 - **Azure Storage**: Manage Azure Storage blobs and containers
-- **Image Generation**: Generate images using Azure OpenAI DALL-E or Flux models
-- **Image Editing**: Edit existing images with AI-powered modifications
+- **Image Generation**: Generate images using AI models (gpt-image-1, flux.1-kontext-pro)
+- **Image Editing**: Edit existing images with AI-powered modifications and enhancements
 
 ## Getting Started
 
@@ -82,10 +82,15 @@ You can use these prompts with an MCP-compatible client or extension:
 - **Azure resource groups (with MCP elicitation)**
   - `listAzureResourceGroups` (uses VS Code command palette for subscription selection)
 
-- **Image generation and editing**
+- **Image generation**
   - `generateImages: prompt = "A futuristic cityscape at sunset"`
-  - `generateImages: prompt = "A cute robot", model = "flux.1-kontext-pro", size = "512x512"`
+  - `generateImages: prompt = "A cute robot", model = "flux.1-kontext-pro", size = "512x512", quality = "hd"`
+  - `generateImages: prompt = "Mountain landscape", model = "gpt-image-1", n = 2`
+
+- **Image editing**
   - `editImages: prompt = "Add a rainbow in the sky", image = "<base64-data>"`
+  - `editImages: prompt = "Change the car color to red", image = "<base64-data>", model = "gpt-image-1"`
+  - `editImages: prompt = "Remove the background", image = "<base64-data>", quality = "hd"`
 
 ## Image Generation API Requirements
 
@@ -94,11 +99,17 @@ The image generation tools require a running API server at `http://127.0.0.1:800
 - `POST /v1/images/edits` - Edit images with AI modifications
 
 **Supported Models:**
-- `gpt-image-1` (Azure OpenAI DALL-E)
-- `flux.1-kontext-pro` (Flux model)
+- `gpt-image-1` (Azure OpenAI DALL-E) - Default model
+- `flux.1-kontext-pro` (Flux model) - High-quality artistic generation
 
-**Supported Sizes:** 1024x1024, 512x512, and other standard dimensions
-**Quality Options:** standard, high
+**Model-Specific Features:**
+- **gpt-image-1**: Quality options (standard, hd), supports both generation and editing
+- **flux.1-kontext-pro**: Standard quality only, optimized for creative content
+
+**Supported Sizes:** 1024x1024 (default), 512x512, 256x256, and other standard dimensions
+**Quality Options:** 
+- gpt-image-1: `standard`, `hd`
+- flux.1-kontext-pro: `standard`
 
 ## MCP Elicitation Features ⭐
 
