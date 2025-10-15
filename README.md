@@ -25,6 +25,18 @@ It provides multiple capabilities including weather data, system utilities, Azur
 npm install
 ```
 
+### Configure Environment
+1. Copy the sample environment file:
+```
+cp .env.sample .env
+```
+
+2. Edit `.env` file to configure your image API endpoints:
+```bash
+GENERATE_IMAGE_API_URL=http://127.0.0.1:8000/v1/images/generations
+EDIT_IMAGE_API_URL=http://127.0.0.1:8000/v1/images/edits
+```
+
 ### Build the project
 ```
 npx tsc
@@ -44,6 +56,9 @@ npm run start
 - `src/server.ts`: Main MCP server implementation
 - `package.json`: Project configuration and dependencies
 - `tsconfig.json`: TypeScript configuration
+- `.env`: Environment configuration (create from .env.sample)
+- `.env.sample`: Environment configuration template
+- `.gitignore`: Git ignore rules
 
 ## Sample Prompts
 
@@ -92,11 +107,27 @@ You can use these prompts with an MCP-compatible client or extension:
   - `editImages: prompt = "Change the car color to red", image = "<base64-data>", model = "gpt-image-1"`
   - `editImages: prompt = "Remove the background", image = "<base64-data>", quality = "hd"`
 
+## Configuration
+
+### Environment Variables
+
+Create a `.env` file in the project root (copy from `.env.sample`):
+
+```bash
+# Image Generation API Configuration
+GENERATE_IMAGE_API_URL=http://127.0.0.1:8000/v1/images/generations
+
+# Image Editing API Configuration  
+EDIT_IMAGE_API_URL=http://127.0.0.1:8000/v1/images/edits
+```
+
+**Note**: You can configure separate endpoints for generation and editing to work with different services.
+
 ## Image Generation API Requirements
 
-The image generation tools require a running API server at `http://127.0.0.1:8000` with the following endpoints:
-- `POST /v1/images/generations` - Generate images from text prompts
-- `POST /v1/images/edits` - Edit images with AI modifications
+The image generation tools require running API servers with the following endpoints:
+- `POST /v1/images/generations` - Generate images from text prompts (configured via `GENERATE_IMAGE_API_URL`)
+- `POST /v1/images/edits` - Edit images with AI modifications (configured via `EDIT_IMAGE_API_URL`)
 
 **Supported Models:**
 - `gpt-image-1` (Azure OpenAI DALL-E) - Default model

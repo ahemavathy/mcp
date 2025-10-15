@@ -16,6 +16,9 @@ build/
 .env.test.local
 .env.production.local
 
+# Keep the sample file
+!.env.sample
+
 # IDE and editor files
 .vscode/settings.json
 .vscode/launch.json

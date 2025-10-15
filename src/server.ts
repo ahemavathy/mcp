@@ -5,6 +5,10 @@ import { z } from "zod";
 import fetch from "node-fetch";
 import { exec } from "child_process";
 import { promisify } from "util";
+import dotenv from "dotenv";
+
+// Load environment variables
+dotenv.config();
 
 const execAsync = promisify(exec);
 
@@ -617,7 +621,8 @@ server.registerTool(
         n: n || 1
       };
 
-      const response = await fetch('http://127.0.0.1:8000/v1/images/generations', {
+      const generateUrl = process.env.GENERATE_IMAGE_API_URL || 'http://127.0.0.1:8000/v1/images/generations';
+      const response = await fetch(generateUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -668,7 +673,7 @@ server.registerTool(
       return {
         content: [{
           type: "text",
-          text: `❌ Failed to generate images: ${err.message}\n\n💡 Make sure the image generation API server is running at http://127.0.0.1:8000`
+          text: `❌ Failed to generate images: ${err.message}\n\n💡 Make sure the image generation API server is running at ${process.env.GENERATE_IMAGE_API_URL || 'http://127.0.0.1:8000'}`
         }],
         isError: true
       };
@@ -702,7 +707,8 @@ server.registerTool(
         n: n || 1
       };
 
-      const response = await fetch('http://127.0.0.1:8000/v1/images/edits', {
+      const editUrl = process.env.EDIT_IMAGE_API_URL || 'http://127.0.0.1:8000/v1/images/edits';
+      const response = await fetch(editUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -754,7 +760,7 @@ server.registerTool(
       return {
         content: [{
           type: "text",
-          text: `❌ Failed to edit images: ${err.message}\n\n💡 Make sure the image generation API server is running at http://127.0.0.1:8000`
+          text: `❌ Failed to edit images: ${err.message}\n\n💡 Make sure the image editing API server is running at ${process.env.EDIT_IMAGE_API_URL || 'http://127.0.0.1:8000'}`
         }],
         isError: true
       };

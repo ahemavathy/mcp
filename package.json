@@ -12,11 +12,13 @@
     "@azure/identity": "^4.12.0",
     "@azure/storage-blob": "^12.28.0",
     "@modelcontextprotocol/sdk": "^1.17.1",
+    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "node-fetch": "^3.3.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }
